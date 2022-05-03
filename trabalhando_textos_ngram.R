@@ -27,3 +27,17 @@ view(casmurro_2)
 
 ### Frequência
 
+freq_2 <- casmurro_2 %>%
+  count(palavra, sort = TRUE)
+view(freq_2)
+
+# Usando ngram = 3 -------------------------------------------------------------------------------------------------------------------------
+
+casmurro_3 <- unnest_tokens(casmurro, palavra, Texto, token = "ngrams", n = 3)
+view(casmurro_3)
+
+### Frequência
+
+freq_3 <- casmurro_3 %>%
+  count(palavra, sort = TRUE)
+view(freq_3)
