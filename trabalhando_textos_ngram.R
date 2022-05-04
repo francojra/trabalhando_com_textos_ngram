@@ -184,7 +184,7 @@ ggplot(freq5_bbc) +
 
 ggplot(freq5_bbc) +
   geom_col(aes(y = n, x = reorder(Palavra, -n)), fill = "forestgreen") +
-  labs(y = "Frequência", x = "Palavras do livro Dom Casmurro") +
+  labs(y = "Frequência", x = "Palavras do site da BBC") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
 ### Criar  dataframe e gráfico de frequência de ngrams ( 3 e 4 palavras)
@@ -201,7 +201,49 @@ view(txt_bbc)
 txt_bbc2 <- unnest_tokens(txt_bbc, Palavra, Texto, token = "ngrams", n = 3) 
 view(txt_bbc2)
 
+### Frequência ngram = 3
+
+freq_bbc <- txt_bbc2 %>%
+  count(Palavra, sort = TRUE) %>%
+  drop_na() 
+view(freq_bbc)
+
+freq_ngram_bbc <- filter(freq_bbc, n >= 2) %>%
+  arrange(desc(n), na.rm = TRUE) 
+view(freq_ngram_bbc)
+
+### Gráfico ngram = 3
+
+ggplot(freq_ngram_bbc) +
+  geom_col(aes(x = Palavra, y = n))
+
+ggplot(freq_ngram_bbc) +
+  geom_col(aes(y = n, x = reorder(Palavra, -n)), fill = "orange") +
+  labs(y = "Frequência", x = "Palavras do site da BBC") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
 ### ngram = 4
 
 txt_bbc3 <- unnest_tokens(txt_bbc, Palavra, Texto, token = "ngrams", n = 4) 
 view(txt_bbc3)
+
+### Frequência ngram = 4
+
+freq_bbc <- txt_bbc3 %>%
+  count(Palavra, sort = TRUE) %>%
+  drop_na() 
+view(freq_bbc)
+
+freq_ngram_bbc <- filter(freq_bbc, n >= 2) %>%
+  arrange(desc(n), na.rm = TRUE) 
+view(freq_ngram_bbc)
+
+### Gráfico ngram = 4
+
+ggplot(freq_ngram_bbc) +
+  geom_col(aes(x = Palavra, y = n))
+
+ggplot(freq_ngram_bbc) +
+  geom_col(aes(y = n, x = reorder(Palavra, -n)), fill = "steelblue") +
+  labs(y = "Frequência", x = "Palavras do site da BBC") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
