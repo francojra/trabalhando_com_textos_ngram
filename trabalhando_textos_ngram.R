@@ -187,4 +187,21 @@ ggplot(freq5_bbc) +
   labs(y = "Frequência", x = "Palavras do livro Dom Casmurro") +
   theme(axis.text.x = element_text(angle = 90, hjust = 1))
 
-###
+### Criar  dataframe e gráfico de frequência de ngrams ( 3 e 4 palavras)
+
+texto <- html_nodes(bbc, '.bbc-19j92fr')
+texto1 <- html_text(texto)
+head(texto1)
+
+txt_bbc <- data.frame("Linha" = 1:length(texto1), "Texto" = texto1)
+view(txt_bbc)
+
+### ngram = 3
+
+txt_bbc2 <- unnest_tokens(txt_bbc, Palavra, Texto, token = "ngrams", n = 3) 
+view(txt_bbc2)
+
+### ngram = 4
+
+txt_bbc3 <- unnest_tokens(txt_bbc, Palavra, Texto, token = "ngrams", n = 4) 
+view(txt_bbc3)
