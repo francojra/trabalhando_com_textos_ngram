@@ -150,3 +150,41 @@ texto <- html_nodes(bbc, '.bbc-19j92fr')
 texto1 <- html_text(texto)
 head(texto1)
 
+library(tm)
+
+stopwords("pt") # Indica algumas palavras em português ("pt") que não tem muita utilidade 
+## para as análises
+
+txt_bbc <- removeWords(texto1, stopwords("pt")) # Remove palavras desnecessárias
+view(txt_bbc)
+
+### Criando data frame e gráfico de frequência de palavras
+
+txt_bbc <- data.frame("Linha" = 1:length(txt_bbc), "Texto" = txt_bbc)
+view(txt_bbc)
+
+txt_bbc <- unnest_tokens(txt_bbc, Palavra, Texto) # Coluna palavra substitui coluna 
+# texto
+view(txt_bbc)
+
+freq_bbc <- txt_bbc %>%
+  count(Palavra, sort = TRUE)
+view(freq_bbc)
+
+### As palavras mais frequentes
+
+freq5_bbc <- filter(freq_bbc, n > 5) %>%
+  arrange(desc(n))
+view(freq5_bbc)
+
+### Gráfico
+
+ggplot(freq5_bbc) +
+  geom_col(aes(x = Palavra, y = n))
+
+ggplot(freq5_bbc) +
+  geom_col(aes(y = n, x = reorder(Palavra, -n)), fill = "forestgreen") +
+  labs(y = "Frequência", x = "Palavras do livro Dom Casmurro") +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+###
