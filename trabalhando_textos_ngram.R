@@ -42,7 +42,7 @@ freq_3 <- casmurro_3 %>%
   count(palavra, sort = TRUE)
 view(freq_3)
 
-# Exercícios -------------------------------------------------------------------------------------------------------------------------------
+# Exercício 1 -------------------------------------------------------------------------------------------------------------------------------
 
 ### Baixe um texto de tamanho relativamente grande. Recomendável usar o pacote 'gutenbergr'
 ### ou 'rvest'.
@@ -142,6 +142,9 @@ ggplot(
 
 url2 <- "https://www.bbc.com/portuguese/brasil-61099201"
 bbc <- read_html(url2)
+
+
+# Exercício 2 ------------------------------------------------------------------------------------------------------------------------------
 
 texto <- html_nodes(bbc, '.bbc-19j92fr')
 texto1 <- html_text(texto)
