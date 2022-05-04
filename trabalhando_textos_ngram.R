@@ -139,3 +139,11 @@ ggplot(
        y = "deputados", colour = "SUBQUOTA TRANSLATED")
 
 ### Fonte: http://estatidados.com.br/introducao-a-web-scraping-com-r/
+
+url2 <- "https://www.bbc.com/portuguese/brasil-61099201"
+bbc <- read_html(url2)
+
+texto <- html_nodes(bbc, '.bbc-19j92fr')
+texto1 <- html_text(texto)
+head(texto1)
+
